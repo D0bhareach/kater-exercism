@@ -1,0 +1,12 @@
+[package]
+edition = "2021"
+name = "space-age"
+version = "1.2.0"
+
+[dependencies]
+planet={path="../planet"}
+planet_macro_derive={path="../planet_macro_derive"}
+time={path="../time"}
+
+[lib]
+doctest=false
