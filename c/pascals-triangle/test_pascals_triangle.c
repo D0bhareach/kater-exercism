@@ -40,55 +40,6 @@ static bool check_triangle(size_t count, uint8_t expected[][count],
    return true;
 }
 
-static void test_factorial(void)
-{
-TEST_IGNORE();
-int x = get_factorial(3);
-TEST_ASSERT_EQUAL_INT(x, 6);
-
-x = get_factorial(4);
-TEST_ASSERT_EQUAL_INT(x, 24);
-
-x = get_factorial(1);
-TEST_ASSERT_EQUAL_INT(x, 1);
-x = get_factorial(0);
-TEST_ASSERT_EQUAL_INT(x, 1);
-
-x = get_factorial(5);
-TEST_ASSERT_EQUAL_INT(x, 120);
-
-x = get_factorial(7);
-TEST_ASSERT_EQUAL_INT(x, 5040);
-}
-
-static void test_create_row_4(void)
-{
-    TEST_IGNORE();   // delete this line to run test
-    uint8_t * res = NULL;
-    res = create_row(4, 10);
-    TEST_ASSERT_EQUAL_INT(1, res[0]);
-    TEST_ASSERT_EQUAL_INT(3, res[1]);
-    TEST_ASSERT_EQUAL_INT(3, res[2]);
-    TEST_ASSERT_EQUAL_INT(1, res[3]);
-
-    free(res);
-    res = NULL;
-}
-// 1 4 6 4 1
-static void test_create_row_5(void)
-{
-    TEST_IGNORE();   // delete this line to run test
-    uint8_t * res = NULL;
-    res = create_row(5, 10);
-    TEST_ASSERT_EQUAL_INT(1, res[0]);
-    TEST_ASSERT_EQUAL_INT(4, res[1]);
-    TEST_ASSERT_EQUAL_INT(6, res[2]);
-    TEST_ASSERT_EQUAL_INT(4, res[3]);
-    TEST_ASSERT_EQUAL_INT(1, res[4]);
-
-    free(res);
-    res = NULL;
-}
 
 static void test_no_rows(void)
 {
@@ -125,24 +76,6 @@ static void test_two_rows(void)
    actual = NULL;
 }
 
-static void test_three_rows_my(void)
-{
-   TEST_IGNORE();
-   actual = create_triangle(3);
-
-
-    TEST_ASSERT_EQUAL_INT(actual[0][0], 1);
-    TEST_ASSERT_EQUAL_INT(actual[0][1], 0);
-    TEST_ASSERT_EQUAL_INT(actual[0][2], 0);
-    TEST_ASSERT_EQUAL_INT(actual[1][0], 1);
-    TEST_ASSERT_EQUAL_INT(actual[1][1], 1);
-    TEST_ASSERT_EQUAL_INT(actual[1][2], 0);
-    TEST_ASSERT_EQUAL_INT(actual[2][0], 1);
-    TEST_ASSERT_EQUAL_INT(actual[2][1], 2);
-    TEST_ASSERT_EQUAL_INT(actual[2][2], 1);
-   free_triangle(actual, 3);
-   actual = NULL;
-}
 
 static void test_three_rows(void)
 {
@@ -237,6 +170,61 @@ static void test_ten_rows(void)
    actual = NULL;
 }
 
+// my test functions
+/*
+ 
+static void test_factorial(void)
+{
+    TEST_IGNORE();
+    int x = get_factorial(3);
+    TEST_ASSERT_EQUAL_INT(x, 6);
+
+    x = get_factorial(4);
+    TEST_ASSERT_EQUAL_INT(x, 24);
+
+    x = get_factorial(1);
+    TEST_ASSERT_EQUAL_INT(x, 1);
+    x = get_factorial(0);
+    TEST_ASSERT_EQUAL_INT(x, 1);
+
+    x = get_factorial(5);
+    TEST_ASSERT_EQUAL_INT(x, 120);
+
+    x = get_factorial(7);
+    TEST_ASSERT_EQUAL_INT(x, 5040);
+}
+
+static void test_create_row_4(void)
+{
+    TEST_IGNORE();   // delete this line to run test
+    uint8_t * res = NULL;
+    res = create_row(4, 10);
+    TEST_ASSERT_EQUAL_INT(1, res[0]);
+    TEST_ASSERT_EQUAL_INT(3, res[1]);
+    TEST_ASSERT_EQUAL_INT(3, res[2]);
+    TEST_ASSERT_EQUAL_INT(1, res[3]);
+
+    free(res);
+    res = NULL;
+}
+// 1 4 6 4 1
+static void test_create_row_5(void)
+{
+    TEST_IGNORE();   // delete this line to run test
+    uint8_t * res = NULL;
+    res = create_row(5, 10);
+    TEST_ASSERT_EQUAL_INT(1, res[0]);
+    TEST_ASSERT_EQUAL_INT(4, res[1]);
+    TEST_ASSERT_EQUAL_INT(6, res[2]);
+    TEST_ASSERT_EQUAL_INT(4, res[3]);
+    TEST_ASSERT_EQUAL_INT(1, res[4]);
+
+    free(res);
+    res = NULL;
+}
+ 
+*/
+
 int main(void)
 {
    UNITY_BEGIN();
@@ -250,10 +238,10 @@ int main(void)
    RUN_TEST(test_six_rows);
    RUN_TEST(test_ten_rows);
  // my tests
-    RUN_TEST(test_factorial);
-    RUN_TEST(test_create_row_4);
-    RUN_TEST(test_create_row_5);
-    RUN_TEST(test_three_rows_my);
+    // RUN_TEST(test_factorial);
+    // RUN_TEST(test_create_row_4);
+    // RUN_TEST(test_create_row_5);
+    // RUN_TEST(test_three_rows_my);
    
 
    return UNITY_END();
