@@ -25,7 +25,7 @@ bool is_isogram(const char phrase[])
     } Isogram;
     Isogram iso;
     iso.index = 0;
-    iso.chars = calloc(len, sizeof(char));
+    iso.chars = malloc(len *  sizeof(char));
     for (size_t i = 0; i < len; i++)
     {
             char phrase_char = phrase[i];
