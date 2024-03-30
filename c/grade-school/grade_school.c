@@ -2,24 +2,27 @@
 #include <stdlib.h>
 #include <string.h>
 
-int compare_grade(const void *a, const void *b);
-int compare_name(const void *a, const void *b);
-int roster_has_student(roster_t *roster, char * name);
 
-int compare_grade(const void *a, const void *b)
+int compare(const void *a, const void *b)
 {
         uint8_t grade1 = ((const student_t *)a)->grade;
         uint8_t grade2 = ((const  student_t *)b)->grade;
         if (grade2 == 255) return -1;
-        return (grade1 - grade2);
+        int grc = (grade1 - grade2);
+        if (grc == 0) {
+                const char *n1 = ((const student_t *)a)->name;
+                const char *n2 = ((const student_t *)b)->name;
+                return strcmp(n1, n2);
+        }
+        return grc;
 }
 
-int compare_name(const void *a, const void *b)
-{
-        const char *n1 = ((const student_t *)a)->name;
-        const char *n2 = ((const student_t *)b)->name;
-        return strcmp(n1, n2);
-}
+// int compare_name(const void *a, const void *b)
+// {
+//         const char *n1 = ((const student_t *)a)->name;
+//         const char *n2 = ((const student_t *)b)->name;
+//         return strcmp(n1, n2);
+// }
 
 int roster_has_student(roster_t *roster, char * name)
 {
@@ -61,10 +64,10 @@ uint8_t add_student(roster_t *rost, char * name, uint8_t grade)
                 rost->students[rost->count] = st;
                 rost->count++;
                 res++;
+                // qsort(rost->students, MAX_STUDENTS,
+                //                 sizeof(student_t), compare_name);
                 qsort(rost->students, MAX_STUDENTS,
-                                sizeof(student_t), compare_name);
-                qsort(rost->students, MAX_STUDENTS,
-                                sizeof(student_t), compare_grade);
+                                sizeof(student_t), compare);
         }
         return res;
 }
@@ -81,5 +84,10 @@ roster_t get_grade(roster_t *rost, uint8_t desired)
                 }
 
         }
+
+        // qsort(r.students, MAX_STUDENTS,
+        //                 sizeof(student_t), compare_name);
+        // qsort(r.students, MAX_STUDENTS,
+        //                 sizeof(student_t), compare_grade);
         return r;
 }

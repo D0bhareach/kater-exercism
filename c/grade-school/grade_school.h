@@ -20,4 +20,8 @@ typedef struct {
 void init_roster(roster_t *rost);
 uint8_t add_student(roster_t *rost, char * name, uint8_t grade);
 roster_t get_grade(roster_t *rost, uint8_t desired);
+
+int compare(const void *a, const void *b);
+// int compare_name(const void *a, const void *b);
+int roster_has_student(roster_t *roster, char * name);
 #endif
