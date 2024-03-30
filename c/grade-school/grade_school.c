@@ -17,12 +17,6 @@ int compare(const void *a, const void *b)
         return grc;
 }
 
-// int compare_name(const void *a, const void *b)
-// {
-//         const char *n1 = ((const student_t *)a)->name;
-//         const char *n2 = ((const student_t *)b)->name;
-//         return strcmp(n1, n2);
-// }
 
 int roster_has_student(roster_t *roster, char * name)
 {
@@ -64,8 +58,6 @@ uint8_t add_student(roster_t *rost, char * name, uint8_t grade)
                 rost->students[rost->count] = st;
                 rost->count++;
                 res++;
-                // qsort(rost->students, MAX_STUDENTS,
-                //                 sizeof(student_t), compare_name);
                 qsort(rost->students, MAX_STUDENTS,
                                 sizeof(student_t), compare);
         }
@@ -85,9 +77,5 @@ roster_t get_grade(roster_t *rost, uint8_t desired)
 
         }
 
-        // qsort(r.students, MAX_STUDENTS,
-        //                 sizeof(student_t), compare_name);
-        // qsort(r.students, MAX_STUDENTS,
-        //                 sizeof(student_t), compare_grade);
         return r;
 }
