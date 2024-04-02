@@ -34,7 +34,6 @@ TEST_CASE("Info message", "[task_1]")
 
     REQUIRE(actual == expected);
 }
-#if defined(EXERCISM_RUN_ALL_TESTS)
 
 TEST_CASE("Error log level", "[task_2]")
 {
@@ -89,4 +88,4 @@ TEST_CASE("Info reformat", "[task_3]")
 
     REQUIRE(actual == expected);
 }
-#endif
+// #endif

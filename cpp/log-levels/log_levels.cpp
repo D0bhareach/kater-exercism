@@ -1,22 +1,23 @@
 #include <string>
-//
-#include <iostream>
 
 namespace log_line {
     std::string message(std::string line) {
-        size_t idx = line.find(":");
-        std::cout << "idx: " <<idx<<std::endl;
-        return line;
-        // return the message
+        size_t idx = 0;
+        idx = line.find(" ", 0);
+        return line.substr(++idx);
     }
 
     std::string log_level(std::string line) {
-        return line;
-        // return the log level
+        size_t idx = 0;
+        idx = line.find("]", 0);
+        return line.substr(1, --idx);
     }
 
     std::string reformat(std::string line) {
-        return line;
-        // return the reformatted message
+        size_t idx = 0;
+        idx = line.find("]", 0);
+        std::string msg = line.substr(idx + 3);
+        std::string info = line.substr(1, (idx - 1));
+        return msg + " (" + info + ")";
     }
 }
