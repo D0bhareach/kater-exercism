@@ -10,13 +10,16 @@
 using namespace std;
 
 // Secret-handshake exercise test case data version 1.2.1
+TEST_CASE("do_nothing_for_zero")
+{
+    REQUIRE(vector<string>{} == secret_handshake::commands(0));
+}
 
 TEST_CASE("wink_for_1")
 {
     REQUIRE(vector<string>{"wink"} == secret_handshake::commands(1));
 }
 
-#if defined(EXERCISM_RUN_ALL_TESTS)
 TEST_CASE("double_blink_for_10")
 {
     REQUIRE(vector<string>{"double blink"} == secret_handshake::commands(2));
@@ -37,6 +40,14 @@ TEST_CASE("combine_two_actions")
     REQUIRE(vector<string>{"wink", "double blink"} == secret_handshake::commands(3));
 }
 
+TEST_CASE("all_possible_actions")
+{
+    REQUIRE(vector<string>{"wink", "double blink", "close your eyes", "jump"}
+                            == secret_handshake::commands(15));
+}
+#define EXERCISM_RUN_ALL_TESTS
+#if defined(EXERCISM_RUN_ALL_TESTS)
+
 TEST_CASE("reverse_two_actions")
 {
     REQUIRE(vector<string>{"double blink", "wink"} == secret_handshake::commands(19));
@@ -52,11 +63,6 @@ TEST_CASE("reversing_no_actions_still_gives_no_actions")
     REQUIRE(vector<string>{} == secret_handshake::commands(16));
 }
 
-TEST_CASE("all_possible_actions")
-{
-    REQUIRE(vector<string>{"wink", "double blink", "close your eyes", "jump"}
-                            == secret_handshake::commands(15));
-}
 
 TEST_CASE("reverse_all_possible_actions")
 {
@@ -64,9 +70,5 @@ TEST_CASE("reverse_all_possible_actions")
                             == secret_handshake::commands(31));
 }
 
-TEST_CASE("do_nothing_for_zero")
-{
-    REQUIRE(vector<string>{} == secret_handshake::commands(0));
-}
 
 #endif // !EXERCISM_RUN_ALL_TESTS
