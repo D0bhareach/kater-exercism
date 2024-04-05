@@ -11,6 +11,7 @@ TEST_CASE("need a license for a car", "[task_1]") {
     REQUIRE(vehicle_purchase::needs_license(kind));
 }
 
+#define EXERCISM_RUN_ALL_TESTS
 #if defined(EXERCISM_RUN_ALL_TESTS)
 
 TEST_CASE("need a license for a truck", "[task_1]") {
