@@ -7,17 +7,23 @@
 
 using namespace std;
 
-TEST_CASE("it's the hourly_rate times 8", "[task_1]") { REQUIRE(daily_rate(50) == 400.0); }
+TEST_CASE("it's the hourly_rate times 8", "[task_1]")
+{ REQUIRE(daily_rate(50) == 400.0); }
 
+#define EXERCISM_RUN_ALL_TESTS
 #if defined(EXERCISM_RUN_ALL_TESTS)
 
-TEST_CASE("it always returns a float", "[task_1]") { REQUIRE(daily_rate(60) == 480.0); }
+TEST_CASE("it always returns a float", "[task_1]") 
+{ REQUIRE(daily_rate(60) == 480.0); }
 
-TEST_CASE("it does not round", "[task_1]") { REQUIRE(daily_rate(55.1) == 440.8); }
+TEST_CASE("it does not round", "[task_1]")
+{ REQUIRE(daily_rate(55.1) == 440.8); }
 
-TEST_CASE("a discount of 10 percent leaves 90 percent of the original price", "[task_2]") {
+TEST_CASE("a discount of 10 percent leaves 90 percent of the original price",
+        "[task_2]") {
     REQUIRE(apply_discount(140.0, 10) == 126.0);
 }
+
 
 TEST_CASE("it doesn't round", "[task_2]") {
     // If unsure about the syntax of this test see:
@@ -26,9 +32,11 @@ TEST_CASE("it doesn't round", "[task_2]") {
                  Catch::Matchers::WithinRel(96.11015, 0.000001));
 }
 
+
 TEST_CASE("it's the daily_rate times 22", "[task_3]") {
     REQUIRE(monthly_rate(62, 0.0) == 10'912);
 }
+
 
 TEST_CASE("the result is rounded up", "[task_3]") {
     // 11_052.8
