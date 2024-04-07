@@ -15,6 +15,7 @@ TEST_CASE("Check correct mark conversion (empty)", "[task_1]") {
     REQUIRE(expected == actual);
 }
 
+#define EXERCISM_RUN_ALL_TESTS
 #if defined(EXERCISM_RUN_ALL_TESTS)
 
 TEST_CASE("Check correct mark conversion (all < 0.5)", "[task_1]") {
@@ -111,7 +112,9 @@ TEST_CASE("Rank one student", "[task_5]") {
     vector<int> grades{82};
     vector<string> names{"Betty"};
     vector<string> expected{"1. Betty: 82"};
+    INFO("Before call to funct.");
     vector<string> actual = student_ranking(grades, names);
+    CAPTURE(actual);
 
     REQUIRE(expected == actual);
 }

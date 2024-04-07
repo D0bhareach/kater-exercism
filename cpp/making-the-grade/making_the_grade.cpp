@@ -65,8 +65,23 @@ std::vector<std::string> student_ranking(
     return result;
 }
 
-// Create a string that contains the name of the first student to make a perfect score on the exam.
-std::string perfect_score(std::vector<int> student_scores, std::vector<std::string> student_names) {
-    // TODO: Implement perfect_score
-    return "";
+std::string perfect_score(
+        std::vector<int> student_scores, std::vector<std::string> student_names) {
+    std::string result = std::string();
+    bool flag = true;
+    std::transform(
+            student_names.begin(), student_names.end(), student_scores.begin(),
+            student_names.begin(),
+            [&result, flag](std::string name, int score) mutable -> std::string{
+                if (flag) {
+                    if (score == 100) {
+                        flag = false;
+                        result = name;
+                        }
+                    }
+                return "";  
+                }
+
+            );
+    return result;
 }
