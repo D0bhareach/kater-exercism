@@ -3,9 +3,6 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-//
-#include <cstdio>
-#include <iostream>
 
 std::vector<int> round_down_scores(std::vector<double> student_scores) {
     std::vector<int> r;
@@ -55,20 +52,16 @@ std::vector<std::string> student_ranking(
     result.reserve(student_scores.size());
     int idx{0};
 
-    auto do_string = [idx, student_scores](std::string n) mutable -> std::string{
-                   int score = student_scores[idx];
+    auto do_string = [idx](std::string name, int score) mutable -> std::string{
                    idx++;
                    std::stringstream sstm;
-                   sstm << idx << ". " << n << ": " << score;
+                   sstm << idx << ". " << name << ": " << score;
                    return sstm.str();
                    };
 
     std::transform(
-            student_names.begin(), student_names.end(),
+            student_names.begin(), student_names.end(), student_scores.begin(),
             std::back_inserter(result), do_string);
-    printf("pass transform\n");
-
-
     return result;
 }
 
