@@ -48,11 +48,8 @@ std::array<int, 4> letter_grades(int highest_score) {
 std::vector<std::string> student_ranking(
         std::vector<int> student_scores,
         std::vector<std::string> student_names) {
-    std::vector<std::string> result;
-    result.reserve(student_scores.size());
     int idx{0};
-
-    auto do_string = [idx](std::string name, int score) mutable -> std::string{
+    auto do_string = [idx](std::string &name, int score) mutable -> std::string{
                    idx++;
                    std::stringstream sstm;
                    sstm << idx << ". " << name << ": " << score;
@@ -61,27 +58,19 @@ std::vector<std::string> student_ranking(
 
     std::transform(
             student_names.begin(), student_names.end(), student_scores.begin(),
-            std::back_inserter(result), do_string);
-    return result;
+            student_names.begin(), do_string);
+    return student_names;
 }
 
 std::string perfect_score(
         std::vector<int> student_scores, std::vector<std::string> student_names) {
-    std::string result = std::string();
-    bool flag = true;
-    std::transform(
-            student_names.begin(), student_names.end(), student_scores.begin(),
-            student_names.begin(),
-            [&result, flag](std::string name, int score) mutable -> std::string{
-                if (flag) {
-                    if (score == 100) {
-                        flag = false;
-                        result = name;
-                        }
-                    }
-                return "";  
-                }
-
-            );
-    return result;
+    auto it = std::find_if(student_scores.begin(), student_scores.end(),
+            [](int s) {
+                return s == 100;
+            });
+    if (it != student_scores.end()) {
+        int index = std::distance(student_scores.begin(), it);
+        return student_names[index];
+    }
+    return "";  
 }
