@@ -1,36 +1,75 @@
 #include <array>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <sstream>
+//
+#include <cstdio>
+#include <iostream>
 
-// Round down all provided student scores.
 std::vector<int> round_down_scores(std::vector<double> student_scores) {
-    // TODO: Implement round_down_scores
-    return {};
+    std::vector<int> r;
+    r.reserve(student_scores.size());
+    for (auto n : student_scores) {
+        r.push_back(static_cast<int>(n));
+    }
+    return r;
 }
 
 
-// Count the number of failing students out of the group provided.
 int count_failed_students(std::vector<int> student_scores) {
-    // TODO: Implement count_failed_students
-    return 0;
+    int res{0};
+    for (int s : student_scores) {
+        if (s < 41) res++; 
+    }
+    return res;
 }
 
-// Determine how many of the provided student scores were 'the best' based on the provided threshold.
 std::vector<int> above_threshold(std::vector<int> student_scores, int threshold) {
-    // TODO: Implement above_threshold
-    return {};
+    std::vector<int> res;
+    res.reserve(student_scores.size()); 
+    for (int s : student_scores) {
+        if (s >= threshold) res.push_back(s);
+    }
+    return res;
 }
 
-// Create a list of grade thresholds based on the provided highest grade.
 std::array<int, 4> letter_grades(int highest_score) {
-    // TODO: Implement letter_grades
-    return {};
+    std::array<int, 4> res;
+    int grade{41};
+    int inc;
+    inc = (highest_score - 40) / 4;
+    res[0] = grade;
+    for (int i = 1; i < 4; i++) {
+        grade += inc;
+        res[i] = grade;
+        
+    }
+    return res;
 }
 
-// Organize the student's rank, name, and grade information in ascending order.
-std::vector<std::string> student_ranking(std::vector<int> student_scores, std::vector<std::string> student_names) {
-    // TODO: Implement student_ranking
-    return {};
+std::vector<std::string> student_ranking(
+        std::vector<int> student_scores,
+        std::vector<std::string> student_names) {
+    std::vector<std::string> result;
+    result.reserve(student_scores.size());
+    int idx{0};
+
+    auto do_string = [idx, student_scores](std::string n) mutable -> std::string{
+                   int score = student_scores[idx];
+                   idx++;
+                   std::stringstream sstm;
+                   sstm << idx << ". " << n << ": " << score;
+                   return sstm.str();
+                   };
+
+    std::transform(
+            student_names.begin(), student_names.end(),
+            std::back_inserter(result), do_string);
+    printf("pass transform\n");
+
+
+    return result;
 }
 
 // Create a string that contains the name of the first student to make a perfect score on the exam.
