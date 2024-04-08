@@ -13,6 +13,7 @@ TEST_CASE("Alien has correct initial coordinates", "[task_1]") {
     REQUIRE(alien.y_coordinate == -1);
 }
 
+#define EXERCISM_RUN_ALL_TESTS
 #if defined(EXERCISM_RUN_ALL_TESTS)
 
 TEST_CASE("Alien has correct initial health", "[task_1]") {
