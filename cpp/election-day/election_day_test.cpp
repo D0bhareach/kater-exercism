@@ -13,6 +13,7 @@ TEST_CASE("Votes are returned correctly for 0 votes", "[task_1]") {
     REQUIRE(vote_count(result) == expected);
 }
 
+#define EXERCISM_RUN_ALL_TESTS
 #if defined(EXERCISM_RUN_ALL_TESTS)
 
 TEST_CASE("Votes are returned correctly for 211 votes", "[task_1]") {
