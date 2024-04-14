@@ -10,6 +10,7 @@ TEST_CASE("Create different probes", "[task_1]") {
     heaven::Vessel will{"Riker", 2, star_map::System::BetaHydri};
 }
 
+#define EXERCISM_RUN_ALL_TESTS
 #if defined(EXERCISM_RUN_ALL_TESTS)
 
 TEST_CASE("Create drone from replication", "[task_2]") {

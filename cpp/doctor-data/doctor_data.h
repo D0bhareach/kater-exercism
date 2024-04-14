@@ -1,3 +1,42 @@
-// ERROR: FILE CORRUPTED. Please supply valid C++ Code.
+#ifndef DOCTOR_DATA
+#define DOCTOR_DATA
 
-hp1,üapöhp2ö%Äcountöiöma1,öhp2ö%Älawöhp3öö/önextöstepö%Ädacöiöml1ö%Älawö7ö%Ädacöiömb1ö%Ärandomöö%Äscrö9sö%Äsirö9sö%Äxctöhr1ö%Äaddöiömx1ö%Ädacöiömx1ö%Äswapö%Äaddöiömy1ö%Ädacöiömy1ö%Ärandomö%Äscrö9sö%Äsirö9sö%Äxctöhr2ö%Ädacöiömdyö%Ädioöiömdxö%Äsetupö.hpt,3ö%Älacöranö%Ädacöiömth
+#include <string>
+namespace star_map {
+
+    enum class System {
+        Sol,
+        EpsilonEridani,
+        AlphaCentauri,
+        DeltaEridani,
+        Omicron2Eridani,
+        BetaHydri
+    };
+
+}
+
+namespace heaven {
+    using namespace star_map;
+    class Vessel {
+        public:
+            std::string name;
+            int generation;
+            star_map::System current_system {star_map::System::Sol};
+            int busters {0};
+            Vessel(std::string n, int g):name{n}, generation{g}{
+                current_system = star_map::System::Sol;
+            };
+
+            Vessel(std::string n, int g, star_map::System s): \
+                name{n}, generation{g}, current_system{s}{};
+
+            void make_buster();
+            bool shoot_buster();
+            Vessel replicate(std::string name);
+    };
+    std::string get_older_bob (Vessel &a, Vessel &b);
+    bool in_the_same_system(Vessel &a, Vessel &b);
+}
+
+
+#endif
