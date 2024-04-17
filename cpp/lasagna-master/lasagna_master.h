@@ -1,5 +1,6 @@
 #pragma once
-
+#include <string>
+#include <vector>
 namespace lasagna_master {
 
 struct amount {
@@ -7,4 +8,15 @@ struct amount {
     double sauce;
 };
 
-}  // namespace lasagna_master
+int preparationTime(const std::vector<std::string> &layers, int time = 2);
+
+amount quantities(const std::vector<std::string> &layers);
+
+void addSecretIngredient(std::vector<std::string> &myList, \
+                const std::vector<std::string> &friendsList);
+
+std::vector<double> scaleRecipe(const std::vector<double> &quantities, int s);
+
+void addSecretIngredient(std::vector<std::string> &myList, \
+                const std::string secretIngredient);
+}

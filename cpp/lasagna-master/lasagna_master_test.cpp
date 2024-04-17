@@ -37,6 +37,7 @@ TEST_CASE("preparationTime: Preparation time for many layers with custom average
     REQUIRE(preparationTime(layers, time) == expected);
 }
 
+#define EXERCISM_RUN_ALL_TESTS
 #if defined(EXERCISM_RUN_ALL_TESTS)
 
 TEST_CASE("preparationTime: Preparation time for few layers", "[task_1]") {
