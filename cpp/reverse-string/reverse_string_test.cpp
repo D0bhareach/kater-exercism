@@ -10,6 +10,7 @@ TEST_CASE("an_empty_string")
     REQUIRE("" == reverse_string::reverse_string(""));
 }
 
+#define EXERCISM_RUN_ALL_TESTS
 #if defined(EXERCISM_RUN_ALL_TESTS)
 TEST_CASE("a_word")
 {
