@@ -10,6 +10,7 @@ TEST_CASE("not_divisible_by_4")
     REQUIRE(!leap::is_leap_year(2015));
 }
 
+#define EXERCISM_RUN_ALL_TESTS
 #if defined(EXERCISM_RUN_ALL_TESTS)
 TEST_CASE("divisible_by_2_not_divisible_by_4")
 {
