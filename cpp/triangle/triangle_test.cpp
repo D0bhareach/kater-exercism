@@ -12,12 +12,13 @@ CATCH_REGISTER_ENUM(triangle::flavor,
         triangle::flavor::isosceles,
         triangle::flavor::scalene)
 
+#define EXERCISM_RUN_ALL_TESTS
+#if defined(EXERCISM_RUN_ALL_TESTS)
 TEST_CASE("equilateral_triangles_have_equal_sides")
 {
     REQUIRE(triangle::flavor::equilateral == triangle::kind(2, 2, 2));
 }
 
-#if defined(EXERCISM_RUN_ALL_TESTS)
 TEST_CASE("larger_equilateral_triangles_also_have_equal_sides")
 {
     REQUIRE(triangle::flavor::equilateral == triangle::kind(10, 10, 10));
@@ -72,6 +73,7 @@ TEST_CASE("triangles_with_negative_sides_are_illegal")
 {
     REQUIRE_THROWS_AS(triangle::kind(3, 4, -5), std::domain_error);
 }
+
 
 TEST_CASE("triangles_violating_triangle_inequality_are_illegal")
 {
