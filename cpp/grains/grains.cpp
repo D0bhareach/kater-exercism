@@ -1,6 +1,7 @@
 #include "grains.h"
 #include <cmath>
 #include <cstddef>
+#include <string>
 
 namespace grains {
 

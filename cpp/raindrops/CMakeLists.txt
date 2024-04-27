@@ -5,6 +5,7 @@ get_filename_component(exercise ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 cmake_minimum_required(VERSION 3.5.1)
 
 # Name the project after the exercise
+# set(CMAKE_CXX_COMPILER /usr/bin/c++)
 project(${exercise} CXX)
 
 # Get a source filename from the exercise name by replacing -'s with _'s

@@ -5,11 +5,14 @@
 #include "test/catch.hpp"
 #endif
 
+#define EXERCISM_RUN_ALL_TESTS
+#if defined(EXERCISM_RUN_ALL_TESTS)
+
 TEST_CASE("the_sound_for_1_is_1")
 {
     REQUIRE("1" == raindrops::convert(1));
 }
-#if defined(EXERCISM_RUN_ALL_TESTS)
+
 TEST_CASE("the_sound_for_3_is_pling")
 {
     REQUIRE("Pling" == raindrops::convert(3));
