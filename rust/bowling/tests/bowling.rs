@@ -20,7 +20,6 @@ fn you_cannot_score_a_game_with_no_rolls() {
 }
 
 #[test]
-#[ignore]
 fn a_game_score_is_some_if_ten_frames_have_been_rolled() {
     let mut game = BowlingGame::new();
 
@@ -33,7 +32,6 @@ fn a_game_score_is_some_if_ten_frames_have_been_rolled() {
 }
 
 #[test]
-#[ignore]
 fn a_game_score_is_none_if_fewer_than_ten_frames_have_been_rolled() {
     let mut game = BowlingGame::new();
 
@@ -282,7 +280,6 @@ fn you_cannot_roll_more_than_ten_pins_in_a_single_frame() {
 }
 
 #[test]
-#[ignore]
 fn first_bonus_ball_after_a_final_strike_cannot_score_an_invalid_number_of_pins() {
     let mut game = BowlingGame::new();
 

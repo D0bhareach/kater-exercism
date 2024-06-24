@@ -1,4 +1,4 @@
-use std::ops::Add;
+// use std::ops::Add;
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum Error {
@@ -6,18 +6,9 @@ pub enum Error {
     GameComplete,
 }
 
-// I need to know which frame is in turn, because every 10 frame is a special case
-// I need to know state of a game
-// Strate of a frame is undeterministic, because it depends on scores of individual rolls.
-
 pub struct BowlingGame {
     frames: Vec<Frame>,
     active_frame: Option<Frame>,
-    // score: Option<u16>,
-    // bowl: f32,
-    // last_pins: u16,
-    // is_strike: bool,
-    // is_spare: bool,
 }
 
 impl Default for BowlingGame {
@@ -25,11 +16,6 @@ impl Default for BowlingGame {
         Self {
             frames: std::vec::Vec::with_capacity(10),
             active_frame: Some(Frame::default()),
-            // score: None,
-            // bowl: 0f32,
-            // last_pins: 16,
-            // is_strike: false,
-            // is_spare: false,
         }
     }
 }
@@ -39,26 +25,22 @@ impl BowlingGame {
         BowlingGame::default()
     }
 
-    // since I do not understand requirement clear and loud. It's a game of
-    // adjusting this method to tests. It means a lot of rewritng for condidition
-    // Docs for what is done. State of the game is holding vars to see if game
-    // is strike or spare. And updates accordingli.
-    // ten_frames_without_a_strike_or_spare() test is not passig apparently I need to assign
-    // last_pins to zero again with some condition.
-
-    // roll must call referenced active frame
-    pub fn roll(&mut self, pins: u16) -> Result<(), Error> {
-        // if Some(activeframe) call active frame roll_frame
-        // if not create defaut adjust requred fields in self and call
-        // roll_frame of new active.
-        // dbg!(self.bowl);
+    pub fn roll(&mut self, pins: i16) -> Result<(), Error> {
         if pins.gt(&10) {
             return Err(Error::NotEnoughPinsLeft);
+        }
+        if self.active_frame.is_none() {
+            self.active_frame = Some(Frame::default());
+        }
+
+        if let Some(_) = self.active_frame.as_mut().unwrap().roll_frame(pins) {
+            let f = self.active_frame.take().unwrap();
+            self.frames.push(f);
         }
         Ok(())
     }
 
-    pub fn score(&self) -> Option<u16> {
+    pub fn score(&self) -> Option<i16> {
         // if_the_last_frame_is_a_strike_you_cannot_score_before_the_extra_rolls_are_taken
         // if_the_last_frame_is_a_spare_you_cannot_create_a_score_before_extra_roll_is_taken
         // special case: last_two_strikes_followed_by_only_last_bonus_with_non_strike_points
@@ -71,19 +53,18 @@ impl BowlingGame {
         // consecutive_spares_each_get_a_one_roll_bonus
         //
 
-        if self.frames.len().eq(&0) {
+        if self.frames.len() < 10 {
             return None;
         }
-        Some(0)
-
-        // Must redo this lines below.
+        let res: i16 = self.frames.iter().fold(0, |sum, frame| sum + frame.score);
+        Some(res)
     }
 }
 
-// how to advance frames in game? must habe bool flag for frame active or something.
 struct Frame {
-    score: u16,
+    score: i16,
     rolls_left: u8,
+    rolls_total: u8,
     special: bool,
 }
 
@@ -92,16 +73,31 @@ impl Default for Frame {
         Self {
             score: 0,
             rolls_left: 2,
+            rolls_total: 0,
             special: false,
         }
     }
 }
 
-impl Add for Frame {
-    type Output = u16;
-
-    fn add(self, other: Self) -> u16 {
-        self.score + other.score
+impl Frame {
+    fn roll_frame(&mut self, pins: i16) -> Option<bool> {
+        let mut res: Option<bool> = None;
+        if self.rolls_left.gt(&0) {
+            self.score += pins;
+            self.rolls_left -= 1;
+            self.rolls_total += 1;
+            if self.rolls_total.eq(&1) && self.score.eq(&10) {
+                self.rolls_left = 2;
+            }
+        }
+        if self.rolls_left.eq(&0) {
+            if self.rolls_total.eq(&2) && self.score.eq(&10) {
+                self.rolls_left = 1;
+            } else {
+                res = Some(true);
+            }
+        }
+        res
     }
 }
 /*
