@@ -1,5 +1,3 @@
-// use std::ops::Add;
-
 #[derive(Debug, PartialEq, Eq)]
 pub enum Error {
     NotEnoughPinsLeft,
@@ -29,6 +27,9 @@ impl BowlingGame {
         if pins.gt(&10) {
             return Err(Error::NotEnoughPinsLeft);
         }
+        if self.frames.len().eq(&10) {
+            return Err(Error::GameComplete);
+        }
         if self.active_frame.is_none() {
             self.active_frame = Some(Frame::default());
         }
@@ -41,19 +42,30 @@ impl BowlingGame {
     }
 
     pub fn score(&self) -> Option<i16> {
-        // if_the_last_frame_is_a_strike_you_cannot_score_before_the_extra_rolls_are_taken
-        // if_the_last_frame_is_a_spare_you_cannot_create_a_score_before_extra_roll_is_taken
-        // special case: last_two_strikes_followed_by_only_last_bonus_with_non_strike_points
-        // a_game_score_is_some_if_ten_frames_have_been_rolled()
-        // you_cannot_score_a_game_with_no_rolls
-        // a_game_score_is_none_if_fewer_than_ten_frames_have_been_rolled
-        // twenty_zero_pin_rolls_scores_zero
-        // ten_frames_without_a_strike_or_spare
-        // points_scored_in_the_roll_after_a_spare_are_counted_twice_as_a_bonus
-        // consecutive_spares_each_get_a_one_roll_bonus
-        //
+        // if the last frame is a strike you cannot score before the extra rolls are taken
+        // I won't finish frame than it's impossible.
 
-        if self.frames.len() < 10 {
+        // if the last frame is a spare you cannot create a score before extra roll is taken
+        // same as above
+
+        // special case: last two strikes followed by only last bonus with non strike points
+
+        // a game score is some if ten frames have been rolled()
+        // you cannot score a game with no rolls
+        // a game score is none if fewer than ten frames have been rolled
+
+        // twenty zero pin rolls scores zero
+        // this I can not understand 11 rolls is error, 20 rolls is good
+
+        // ten frames without a strike or spare
+        // points scored in the roll after a spare are counted twice as a bonus
+        // is it always like this??
+
+        // consecutive spares each get a one roll bonus
+
+        // if the last frame is a spare you get one extra roll that is scored once
+
+        if self.frames.len().eq(&0) || self.frames.len() % 10 != 0 {
             return None;
         }
         let res: i16 = self.frames.iter().fold(0, |sum, frame| sum + frame.score);
@@ -86,13 +98,14 @@ impl Frame {
             self.score += pins;
             self.rolls_left -= 1;
             self.rolls_total += 1;
-            if self.rolls_total.eq(&1) && self.score.eq(&10) {
-                self.rolls_left = 2;
+            if self.score.eq(&10) && self.rolls_total.eq(&1) {
+                // finish the frame
+                return Some(true);
             }
         }
         if self.rolls_left.eq(&0) {
             if self.rolls_total.eq(&2) && self.score.eq(&10) {
-                self.rolls_left = 1;
+                // self.rolls_left = 1;
             } else {
                 res = Some(true);
             }
